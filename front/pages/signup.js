@@ -1,6 +1,15 @@
 import React, { useState, useCallback } from 'react';
 import {Form, Input, Checkbox, Button} from "antd";
 
+// 인풋검증을 아래의 커스텀훅으로 간단화 시킬 수 있다! export로 다른곳에서 사용할 수 있게!
+export const useInput = (initValue = null) => {
+    const [value, setter] = useState(initValue);
+    const handler = useCallback((e) => {
+        setter(e.target.value);
+    }, []);
+    return [value, handler];
+};
+
 const Signup = () => {
 
     const [passwordCheck, setPasswordCheck] = useState('');
@@ -8,20 +17,13 @@ const Signup = () => {
     const [passwordError, setPasswordError] = useState(false);
     const [termError, setTermError] = useState(false);
 
-    // 인풋검증을 아래의 커스텀훅으로 간단화 시킬 수 있다!
-    const useInput = (initValue = null) => {
-        const [value, setter] = useState(initValue);
-        const handler = (e) => {
-            setter(e.target.value);
-        };
-        return [value, handler];
-    };
+
 
     const [id, onChangeId] = useInput('');
-    const [nick, setNick] = useInput('');
-    const [password, setPassword] = useInput('');
+    const [nick, onChangeNick] = useInput('');
+    const [password, onChangePassword] = useInput('');
 
-    const onSubmit = (e) => {
+    const onSubmit = useCallback((e) => {
         e.preventDefault();
         if(password !== passwordCheck) {
             return setPasswordError(true);
@@ -36,16 +38,16 @@ const Signup = () => {
             passwordCheck,
             term,
         });
-    };
+    }, [password, passwordCheck, term]);
 
-    const onChangePasswordCheck = (e) => {
+    const onChangePasswordCheck = useCallback((e) => {
         setPasswordError(e.target.value !== password);
         setPasswordCheck(e.target.value);
-    };
-    const onChangeTerm = (e) => {
+    }, [password]);
+    const onChangeTerm = useCallback((e) => {
         setTermError(false);
         setTerm(e.target.checked);
-    };
+    }, []);
 
 
 
@@ -75,7 +77,7 @@ const Signup = () => {
 
                 </div>
                 <div>
-                    <Checkbox name={"user-term"} value={term} onChange={onChangeTerm}>동의합니다</Checkbox>
+                    <Checkbox name={"user-term"} onChange={onChangeTerm}>동의합니다</Checkbox>
                     {termError && <div style={{color: 'red'}}>약관에 동의하셔야 합니다.</div>}
                 </div>
                 <div style={{ marginTop: 10 }}>

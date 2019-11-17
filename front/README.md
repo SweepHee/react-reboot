@@ -18,5 +18,12 @@
 ### 디자인 ANT DESIGN
 
 ```
-1npm i antd
+1. npm i antd
+```
+
+### dependencies
+
+```
+1. npm i prop-types
+
 ```
