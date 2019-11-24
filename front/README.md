@@ -32,6 +32,8 @@
 
 4. npm i react-redux@next     => react-redux가 7.1버전 이상이면 해줄 필요 없다!!
 
+5. npm i redux-saga
+
 ```
 
 ### react-redux

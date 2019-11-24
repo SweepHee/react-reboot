@@ -7,6 +7,8 @@ import withRedux from 'next-redux-wrapper';
 import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from '../reducers';
+import sagaMiddleware from '../sagas/middleware';
+import rootSaga from '../sagas';
 
 const NodeBird = ({ Component, store }) => {
     return (
@@ -30,13 +32,16 @@ NodeBird.propTypes = {
 
 export default withRedux((initialState, options) => {
     // 나중에 미들웨어가 추가된다면 아래 미들웨어즈 배열에 추가하면 된다!
-    const middlewares = [];
+    const middlewares = [sagaMiddleware];
     // compose는 여러가지 미들웨어 합성한다. 어플라이미들웨어는 인자로 들어온 미들웨어를 적용(?)하고 아래의 redux확장까지 합성해준다
     // 거의 안바뀌니까 그냥 가져다 쓰자!
-    const enhancer = compose(
+    const enhancer = process.env.NODE_ENV === 'production'
+    ? compose(applyMiddleware(...middlewares))
+    :  compose(
         applyMiddleware(...middlewares), 
         !options.isServer && window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined' ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f,
-    );
+    )
     const store = createStore(reducer, initialState, enhancer); // redux가 가지고 있다
+    sagaMiddleware.run(rootSaga);
     return store;
 })(NodeBird);

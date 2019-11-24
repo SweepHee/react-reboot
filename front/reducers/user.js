@@ -13,8 +13,11 @@ export const initialState = {
 
 // dispatch에 LOG_IN 이라고 입력했을때 type이 LOG_IN인 액션이 실행된다.
 export const LOG_IN = 'LOG_IN'; 
+export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS'; 
+export const LOG_IN_FAILURE = 'LOG_IN_FAILURE'; 
 export const LOG_OUT = 'LOG_OUT';
 export const SIGN_UP = 'SIGN_UP';
+export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 
 
 /* --------- ACTIONS --------- */ 
