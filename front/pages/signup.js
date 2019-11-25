@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import {Form, Input, Checkbox, Button} from "antd";
 import { useDispatch } from 'react-redux';
-import { signUpAction } from '../reducers/user'
+import { signUp } from '../reducers/user'
 
 // 인풋검증을 아래의 커스텀훅으로 간단화 시킬 수 있다! export로 다른곳에서 사용할 수 있게!
 export const useInput = (initValue = null) => {
@@ -34,7 +34,7 @@ const Signup = () => {
             return setTermError(true);
         }
 
-        dispatch(signUpAction({
+        dispatch(signUp({
             id,
             password,
             nick,

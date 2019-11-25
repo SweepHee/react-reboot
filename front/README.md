@@ -12,6 +12,17 @@
     ㄴ .eslintrc 파일 생성
 5. npm i eslint-plugin-import eslint-plugin-react eslint-plugin-react-hooks -D
 6. npm i -g next
+7. npm i -D eslint-config-airbnb
+  ㄴ필수X air-bnb의 리액트 스타일가이드. 엄청 엄격해진다
+  ㄴ .eslintrc => "extends": [ "airbnb" ]
+  ㄴ 지나치게 엄격한건 "rules: { ~~ : "off" } 옵션 사용 가능
+8. npm i -D eslint-plugin-jsx-a11y
+  ㄴ eslint-airbnb 깔았을때 같이 깔아줘야 함.
+  ㄴ 웹접근성 엄격하게 해줌
+9. npm i -D babel-eslint
+  ㄴ eslint는 정규문법만 지원함. 바벨 최신 문법을 지원하게 해줌.
+  ㄴ .eslintrc => "parser": "babel-eslint",
+  ㄴ "env": { "es6": true }
 
 ```
 

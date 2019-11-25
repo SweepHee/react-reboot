@@ -1,5 +1,5 @@
 import { all, fork, takeLatest } from 'redux-saga/effects';
-import { LOG_IN, LOG_IN_SUCCESS, LOG_IN_FAILURE } from '../reducers/user';
+import { LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAILURE } from '../reducers/user';
 
 function loginAPI() {
     // 서버에 요청을 보내는 부분
@@ -25,6 +25,6 @@ function* watchLogin () {
 
 export default function* userSaga() {
     yield all([
-        fork(watchLogin),
+        
     ])
 }
