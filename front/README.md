@@ -45,6 +45,8 @@
 
 5. npm i redux-saga
 
+6. npm i axios
+
 ```
 
 ### react-redux

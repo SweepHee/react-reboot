@@ -57,13 +57,13 @@ export const ADD_POST_TO_ME = "ADD_POST_TO_ME";
 
 /* --------- ACTIONS --------- */ 
 
-export const loginAction = {
+export const loginRequestAction = {
     type: LOG_IN_REQUEST
 };
-export const logoutAction = {
+export const logoutRequestAction = {
     type: LOG_OUT_REQUEST,
 };
-export const signUp = data => ({  // 소괄호로 return 을 생략 가능
+export const signUpRequestAction = data => ({  // 소괄호로 return 을 생략 가능
     type: SIGN_UP_REQUEST,
     data: data,
 })
@@ -77,13 +77,15 @@ export default (state = initialState, action) => {
         case LOG_IN_REQUEST: {
             return {
                 ...state,
-                isLoading: true,
+                isLoggingIn: true,
+                logInErrorReason: '',
             }
         }
         case LOG_IN_SUCCESS: {
             return {
                 ...state,
                 me: dummyUser,
+                isLoggingIn: false,
                 isLoggedIn: true,
                 isLoading: false,
             }
@@ -92,6 +94,8 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: false,
+                isLoggingIn: false,
+                logInErrorReason: action.error,
                 me: null,
             };
         }

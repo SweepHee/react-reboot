@@ -22,7 +22,8 @@ function loginAPI() {
 
 function* login() {
     try {
-        yield call(loginAPI);
+        // yield call(loginAPI);
+        yield delay(2000);
         yield put({
             type: LOG_IN_SUCCESS
         });
@@ -62,6 +63,7 @@ function* watchSignUp() {
 
 export default function* userSaga() {
     yield all([
-
+        fork(watchLogin),
+        fork(watchSignUp),
     ])
 }
